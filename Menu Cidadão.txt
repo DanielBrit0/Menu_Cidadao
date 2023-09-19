@@ -1,0 +1,464 @@
+
+#include <iostream> // Biblioteca que inclue as funcionalidades básicas de entrada e saída no console
+#include <string> // Biblioteca que adiciona classes e funções para utilizar strings (caracteres de texto)
+#include <fstream> // Biblioteca que escreve e lê dados em arquivos
+#include <sstream> // É uma biblioteca para strings porém é mais voltada a manipulação e operações com strings
+#include <algorithm> // É uma biblioteca que inclui varias funcionalidades com os conteúdos dos vetores como organizar em ordem alfabética por exemplo 
+#include <vector> // Uma biblioteca para a adição e manipulação de vetores
+using namespace std; // Comando para evitar o uso de std:: durante o código
+
+int main(){ // Inicia a função main
+	
+    string nome;
+		string sobrenome;
+		string estado;
+		string municipio;
+		// Variáveis para armazenar nome, sobrenome, estado e muniípio do usuário
+		
+		vector <string> nomes;
+		vector <string> sobrenomes;
+		vector <string> estados;
+		vector <string> municipios;
+		// Vetores para ordenação do conteúdo que forem salvos nas respectivas variáveis acima
+		
+		string menu;
+		string entrada;
+		string ordenacao;
+		string ordem;
+		// Variáveis para a manipulação do menu principal, entrada, ordenação e de saída
+
+		do { // Adiciona o primeiro laço de repetição do-while para executar o código enquanto as opções do menu não forem a opção de FIM
+		
+		system ("cls"); // Comando para limpar a tela
+    cout << "=========================================" << endl;
+    cout << "===         BEM-VINDO AO MENU         ===" << endl;
+    cout << "=========================================" << endl;
+    cout << "= Digite o numero da opcao que deseja:  =" << endl;
+		cout << "=                                       =" << endl;
+    cout << "= 1 > Entrada                           =" << endl;
+    cout << "=                                       =" << endl;
+    cout << "= 2 > Ordenacao                         =" << endl;
+    cout << "=                                       =" << endl;
+    cout << "= 3 > Fim                               =" << endl;
+    cout << "=                                       =" << endl;
+    cout << "=========================================" << endl;
+    cout << "\n>> ";
+    getline(cin, menu);
+    // Apresenta ao usuário o menu principal com as opções "Entrada", "Ordenação" e "Fim", também armazena a escolha do usuário na variável "menu"
+
+    while (menu != "1" && menu != "2" && menu != "3"){
+
+        if (menu == "3"){
+
+            break;
+
+        }
+
+        cout << "\nOpcao incorreta, por favor escolha uma das opcoes do menu: " << endl;
+        menu = "";
+        getline(cin, menu);
+
+    } // Adiciona um laço de repetição while para evitar que o usuário quebre o código caso erre as opções do menu
+    	// Dentro do laço é adicionado a condição de que se a alternativa 3 for escolhida o laço é desfeito e o código encerrado
+
+		do { // Adiciona o segundo laçõ de repetição do-while para executar a ação escolhida no menu principal enquanto a escolha não for teclar enter para retornar ao menu principal
+
+    if (menu == "1"){
+
+				system ("cls");
+				cout << "=========================================" << endl;
+        cout << "===          MENU DE ENTRADA          ===" << endl;
+        cout << "=========================================" << endl;
+        cout << "= Preencha os campos abaixo             =" << endl;
+        cout << "= Ou tecle 'enter' para retornar        =" << endl;
+        cout << "=                                       =" << endl;
+        cout << "= Primeiro nome >> ";
+				getline(cin, nome);
+        
+        if (nome == ""){
+        	
+        	break;
+				}
+				
+        cout << "=                                       =" << endl;
+				cout << "= Sobrenome >> ";
+        getline(cin, sobrenome);
+        
+        if (sobrenome == ""){
+        	
+        	break;
+				}
+				
+        cout << "=                                       =" << endl;
+				cout << "= Estado onde mora >> ";
+        getline(cin, estado);
+        
+        if (estado == ""){
+        	
+        	break;
+				}
+				
+        cout << "=                                       =" << endl;
+				cout << "= Municipio >> ";
+				getline(cin, municipio);
+        
+        if (municipio == ""){
+        	
+        	break;
+				}
+				// O comando "getline" a partir deste ponto será bastante utilizado para armazenar todo e qualquer dado digitado pelo usuário nas variáves que forem propostas
+				// Nesta parte o código armazena os dados do usuário e caso ele não digite algum o laço é encerrado retornando ao menu principal
+				
+				ofstream arquivo_csv; // Cria uma classe de fluxo de arquivos com o "ofstream" para ler e escrever dados em arquivos
+				arquivo_csv.open("Cidadão.csv", ios::app); // Cria o arquivo chamado Cidadão em formato .csv e o comando ios::app abre o arquivo em modo de escrita apenas adicionando as informações ao final do arquivo, sem alterar o conteúdo já existente
+				
+				if (arquivo_csv.is_open()) {
+					
+        arquivo_csv << nome << "," << sobrenome << "," << estado << "," << municipio << "\n";
+        arquivo_csv.close();
+        // Nesta parte ele cria uma condição para caso consiga abrir o arquivo salvar os dados armazenados nas variáveis nome, sobremome, estado e municipio que foram digitadas pelo usuário separados por vírgulas
+
+        cout << "=                                       =" << endl;
+				cout << "= Dados salvos no arquivo: Cidadao.csv  =" << endl;
+				cout << "=========================================" << endl;
+    		
+				} else {
+        
+				cout << "=                                       =" << endl;
+				cout << "= Erro ao abrir o arquivo: Cidadao.csv  =" << endl;
+				cout << "=========================================" << endl;
+    		
+				} // Aqui finaliza a condição if com um uma mensagem no else caso o arquivo por algum motivo não consiga ser aberto
+				
+        cout << "\n Tecle 'enter' para retornar" << endl;
+        cout << "\n>> ";
+				getline(cin, entrada);
+				
+				while (entrada != ""){
+				
+				if (entrada == ""){
+					
+					break;
+					
+				}
+				
+        cout << "\nOpcao incorreta, para retornar ao menu principal tecle 'enter'" << endl;
+  			getline(cin, entrada);
+  			
+			} // Nesta parte foi adicionado um laço de repetição while para caso o usuário erre ao teclar enter
+		
+		} else if (menu == "2"){
+			
+			system ("cls");	
+			cout << "=========================================" << endl;
+      cout << "===         MENU DE ORDENACAO         ===" << endl;
+      cout << "=========================================" << endl;
+			cout << "= Escolha a lista que deseja exibir:    =" << endl;
+			cout << "=                                       =" << endl;
+			cout << "= 1 > Nomes                             =" << endl;
+			cout << "=                                       =" << endl;
+			cout << "= 2 > Sobrenomes                        =" << endl;
+			cout << "=                                       =" << endl;
+			cout << "= 3 > Estados                           =" << endl;
+			cout << "=                                       =" << endl;
+			cout << "= 4 > Municipios                        =" << endl;
+			cout << "=                                       =" << endl;
+			cout << "=========================================" << endl;
+			cout << "\n Ou tecle 'enter' para retornar" << endl;
+			cout << "\n>> ";
+			getline(cin, ordenacao);
+			
+			// Esta parte do código introduz o usuário ao menu de ordenação onde ele deve escolher uma das listas de dados armazenados no arquivo para ser exibida ou teclar enter para retornar ao menu principal
+			
+			while (ordenacao != "1" && ordenacao != "2" && ordenacao != "3" && ordenacao != "4" && ordenacao != ""){
+			
+			if (ordenacao == ""){
+				
+				break;
+			} // Caso a ordenação seja nula significa que o usuário teclou enter e quebra o segundo laço de repetição do-while retornando ao menu prinicpal
+										
+				cout << "\nOpcao incoreta, selecione uma opcao valida do menu ordenacao" << endl;
+				ordenacao.clear ();
+				getline(cin, ordenacao);
+					
+			} // Adiciona um laço de repetição while para caso o usuário digite algo diferente do proposto no menu de ordenação
+			
+			if (ordenacao == "1"){
+					
+					system ("cls");
+					cout << "=========================================" << endl;
+      		cout << "===          LISTA DE NOMES           ===" << endl;
+      		cout << "=========================================" << endl;
+      		cout << "=                                       =" << endl;
+					
+					ifstream arquivo_csv("Cidadão.csv", ios::in); // Acessa o arquivo Cidadão.csv utilizando o comando ios::in para abrir-lo em modo de leitura
+
+        	if (arquivo_csv.is_open()) { // Checa se o arquivo foi aberto com sucesso e caso sim executa o resto
+          
+						vector <string> nomes; // Declara o vetor nomes para armazenar as informações da variavel nome
+						string linha; // Adiciona uma variável no formato de string
+
+          	while (getline(arquivo_csv, linha)) {
+          
+							string nome, sobrenome, estado, municipio;
+							istringstream linha_stream(linha);
+          		
+							getline(linha_stream, nome, ',');
+							getline(linha_stream, sobrenome, ',');
+    					getline(linha_stream, estado, ',');
+    					getline(linha_stream, municipio, ',');  
+              
+							nomes.push_back(nome); // Armazena no vetor nomes todas o conteúdo armazenado nas variáveis nome 
+            
+						} // Nesta parte o código recebe todas as variáveis armazenadas no arquivo separadas por linhas
+
+            sort(nomes.begin(), nomes.end()); // Utiliza a função sort para organizar em ordem alfabética
+            
+            for (const auto& nome : nomes) {// Cria um laço de repetição for e declara a variavel para receber cada elemento do vetor nomes durante cada iteração com o loop
+            	
+								cout << "= >> " << nome << endl;
+								cout << "=                                       =" << endl;
+            
+						} // Imprime na tela todos os nomes em ordem alfabética
+						
+						arquivo_csv.close(); // Fecha o aqrquivo
+        	
+					} else {
+          	
+						cout << "=                                       =" << endl;
+						cout << "= Erro ao abrir o arquivo: Cidadao.csv  =" << endl;
+						cout << "=========================================" << endl;
+        	
+					} // Imprime uma mensagem na tela caso o arquivo não abra
+					
+					cout << "= Lista encerrada.                      =" << endl;
+					cout << "=========================================" << endl;
+					cout << "\n Tecle 'enter' para retornar:" << endl;
+					cout << "\n>> ";
+					getline(cin, ordem);
+					
+					while (ordem != ""){
+						
+						if (ordem == ""){
+							
+							break;
+						}
+						
+						cout << "\nOpcao incorreta, para retornar ao menu principal tecle 'enter'" << endl;
+						ordem.clear();
+						getline(cin, ordem);
+					} // Laço de repetição caso o usuário erre em teclar enter para retornar
+					
+			} else if (ordenacao == "2"){ // Nesta segunda condição o código utiliza os mesmo comandos para executar as mesmas ações da primeira condição caso a variavel ordenação fosse 1
+					
+					system ("cls");
+					cout << "=========================================" << endl;
+      		cout << "===        LISTA DE SOBRENOMES        ===" << endl;
+      		cout << "=========================================" << endl;
+      		cout << "=                                       =" << endl;
+					
+					ifstream arquivo_csv("Cidadão.csv", ios::in);
+
+        	if (arquivo_csv.is_open()) {
+          
+						vector <string> sobrenomes; // Declara o vetor sobrnomes para armazenar as informações da variavel sobrenome
+						string linha;
+
+          	while (getline(arquivo_csv, linha)) {
+          
+							string nome, sobrenome, estado, municipio;
+							istringstream linha_stream(linha);
+          		
+							getline(linha_stream, nome, ',');
+							getline(linha_stream, sobrenome, ',');
+    					getline(linha_stream, estado, ',');
+    					getline(linha_stream, municipio, ',');  
+              
+							sobrenomes.push_back(sobrenome);// Armazena no vetor sobrenomes todas o conteúdo armazenado nas variáveis sobrenome
+            
+						} // Mas desta vez o código utiliza a variável sobrenome para adquirir todas as informações de sobrenomes presentes no arquivo
+
+            sort(sobrenomes.begin(), sobrenomes.end());// Utiliza a função sort para organizar em ordem alfabética
+            
+            for (const auto& sobrenome : sobrenomes) {
+            	
+								cout << "= >> " << sobrenome << endl;
+								cout << "=                                       =" << endl;
+            
+						}//Cria o laço para receber todas as informações do vetor a cada interação e a cada interação imprime na tela todos os sobrenomes em ordem alfabética
+						
+						arquivo_csv.close(); // Fecha o arquivo
+        	
+					} else {
+          	
+						cout << "=                                       =" << endl;
+						cout << "= Erro ao abrir o arquivo: Cidadao.csv  =" << endl;
+						cout << "=========================================" << endl;
+        	
+					} // Exibe uma mensagem de erro caso não consiga abrir o arquivo
+					
+					cout << "= Lista encerrada.                      =" << endl;
+					cout << "=========================================" << endl;
+					cout << "\n Tecle 'enter' para retornar:" << endl;
+					cout << "\n>> ";
+					getline(cin, ordem);
+					
+					while (ordem != ""){
+						
+						if (ordem == ""){
+							
+							break;
+						}
+						
+						cout << "\nOpcao incorreta, para retornar ao menu principal tecle 'enter'" << endl;
+						ordem.clear();
+						getline(cin, ordem);
+					} // Mais um laço de repetição caso o usuário erre ao teclar enter
+					
+			} else if (ordenacao == "3"){ // Mesma coisa das condições passadas mas para o a variavel "estado"
+					
+					system ("cls");
+					cout << "=========================================" << endl;
+      		cout << "===         LISTA DE ESTADOS          ===" << endl;
+      		cout << "=========================================" << endl;
+      		cout << "=                                       =" << endl;
+					
+					ifstream arquivo_csv("Cidadão.csv", ios::in);
+
+        	if (arquivo_csv.is_open()) {
+          
+						vector <string> estados;// Declara o vetor estados para armazenar as informações da variavel estados
+						string linha;
+
+          	while (getline(arquivo_csv, linha)) {
+          
+							string nome, sobrenome, estado, municipio;
+							istringstream linha_stream(linha);
+          		
+							getline(linha_stream, nome, ',');
+							getline(linha_stream, sobrenome, ',');
+    					getline(linha_stream, estado, ',');
+    					getline(linha_stream, municipio, ',');  
+              
+							estados.push_back(estado);// Armazena no vetor estados todas o conteúdo armazenado nas variáveis estado
+            
+						} // Lê e imprime todas as variáveis de estado presentes
+
+            sort(estados.begin(), estados.end());// Utiliza a função sort para organizar em ordem alfabética
+						
+						for (const auto& estado : estados) {
+            	
+								cout << "= >> " << estado << endl;
+								cout << "=                                       =" << endl;
+            
+						}//Cria o laço para receber todas as informações do vetor a cada interação e a cada interação imprime na tela todos os estadoss em ordem alfabética
+						
+						arquivo_csv.close(); // Fecha o arquivo
+        	
+					} else {
+          	
+						cout << "=                                       =" << endl;
+						cout << "= Erro ao abrir o arquivo: Cidadao.csv  =" << endl;
+						cout << "=========================================" << endl;
+        	
+					} // Mensagem de erro caso não consiga abrir o arquivo
+					
+					cout << "= Lista encerrada.                      =" << endl;
+					cout << "=========================================" << endl;
+					cout << "\n Tecle 'enter' para retornar:" << endl;
+					cout << "\n>> ";
+					getline(cin, ordem);
+					
+					while (ordem != ""){
+						
+						if (ordem == ""){
+							
+							break;
+						}
+						
+						cout << "\nOpcao incorreta, para retornar ao menu principal tecle 'enter'" << endl;
+						ordem.clear();
+						getline(cin, ordem);
+					} // Laço de repetição caso o usuário erre ao teclar enter para retornar
+					
+			} else if (ordenacao == "4"){ // Mesma coisa das outras mas para a variavel "municipios"
+					
+					system ("cls");
+					cout << "=========================================" << endl;
+      		cout << "===        LISTA DE MUNICIPIOS        ===" << endl;
+      		cout << "=========================================" << endl;
+      		cout << "=                                       =" << endl;
+					
+					ifstream arquivo_csv("Cidadão.csv", ios::in);
+
+        	if (arquivo_csv.is_open()) {
+          
+						vector <string> municipios;// Declara o vetor municipios para armazenar as informações da variavel municipios
+						string linha;
+
+          	while (getline(arquivo_csv, linha)) {
+          
+							string nome, sobrenome, estado, municipio;
+							istringstream linha_stream(linha);
+          		
+							getline(linha_stream, nome, ',');
+							getline(linha_stream, sobrenome, ',');
+    					getline(linha_stream, estado, ',');
+							getline(linha_stream, municipio, ',');
+	
+							municipios.push_back(municipio);// Armazena no vetor municipios todas o conteúdo armazenado nas variáveis municipio
+            
+						} // Lê e imprime todos os municipios na tela enquanto houverem listados no arquivo
+
+            sort(municipios.begin(), municipios.end());// Utiliza a função sort para organizar em ordem alfabética
+						
+						for (const auto& municipio : municipios) {
+            	
+								cout << "= >> " << municipio << endl;
+								cout << "=                                       =" << endl;
+            
+						}//Cria o laço para receber todas as informações do vetor a cada interação e a cada interação imprime na tela todos os municipios em ordem alfabética
+						
+						arquivo_csv.close(); // Fecha o arquivo
+        	
+					} else {
+          	
+						cout << "=                                       =" << endl;
+						cout << "= Erro ao abrir o arquivo: Cidadao.csv  =" << endl;
+						cout << "=========================================" << endl;
+        	
+					} // Mensagem de erro ao abrir o arquivo
+					
+					cout << "= Lista encerrada.                      =" << endl;
+					cout << "=========================================" << endl;
+					cout << "\n Tecle 'enter' para retornar:" << endl;
+					cout << "\n>> ";
+					getline(cin, ordem);
+					
+					while (ordem != ""){
+						
+						if (ordem == ""){
+							
+							break;
+						}
+						
+						cout << "\nOpcao incorreta, para retornar ao menu principal tecle 'enter'" << endl;
+						ordem.clear();
+						getline(cin, ordem);
+					}	// Laço de repetição caso o usuário erre ao teclar enter	
+			}
+				
+		} else if (menu == "3"){ // Condição final do código caso a variável 3 seja escolhida
+			
+				system ("cls");
+        cout << "\n" << "\n" << "     Programa Finalizado!" << endl;
+        return 0;
+	
+			} // Caso a opção Fim seja escolhida pelo usuário o código imprime na tela que o programa foi finalizado
+			
+		} while (entrada != ""); // Fim do segundo laço de repetição
+		
+	}while (menu != "3"); // Fim do primeiro laço de repetição
+	
+	return 0; // Retorna a função main a 0 mostrando que o código foi executado com sucesso
+}
